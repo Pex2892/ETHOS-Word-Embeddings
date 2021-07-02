@@ -130,7 +130,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 BASE_DIR_WE = os.path.join(BASE_DIR, 'word_embeddings')
 STATIC_DIR_WE = os.path.join(BASE_DIR_WE, 'static')
 MEDIA_DIR_WE = os.path.join(MEDIA_ROOT, 'outputs', 'word_embeddings')

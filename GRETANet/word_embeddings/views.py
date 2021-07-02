@@ -5,8 +5,8 @@ from django.conf import settings
 
 def index(request):
     data = {
-        'appname': 'uissMTB',
-        'title': 'Word E',
+        'appname': 'word_embeddings',
+        'title': 'Word Embeddings – GRETANet',
         'media_path': settings.MEDIA_URL,
     }
     return render(request, 'word_embeddings/index.html', data)
