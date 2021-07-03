@@ -12,6 +12,13 @@ function getModel() {
 
 function NW_demo() {
     $("#NW_demo").click(function () {
+        let positive_words = $('#NW_positive_words')
+        positive_words.val('woman,cancer')
+        console.log('NW_show -> positive_words', positive_words.val());
+
+        let negative_words = $('#NW_negative_words')
+        negative_words.val('death')
+        console.log('NW_show -> negative_words', negative_words.val());
 
         NW_show()
     });
@@ -46,5 +53,7 @@ function NW_show() {
             negative_words.parent('.form-group').attr('class', 'form-group has-success')
             negative_words.attr("class", 'form-control form-control-success')
         }
+
+        
     });
 }
