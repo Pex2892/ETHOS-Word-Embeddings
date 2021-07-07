@@ -35,12 +35,28 @@ def run_nearest_words(request):
 
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
                '<tr><th> Pos. words </th><th> Neg. words </th><th> Results </th>' \
-               '<th class="text-right"> Similarity </th></tr></thead>'
+               '<th class="text-right"> Similarity </th></tr></thead><tbody>'
 
     for i in range(0, len(results)):
         html_str += f'<tr><td>{request.POST["positive_words"]}</td><td>{request.POST["negative_words"]}</td>' \
                     f'<td>{results[i][0]}</td><td class="text-right">{round(results[i][1], 4)}</td></tr>'
         # print(request.POST['positive_words'], request.POST['negative_words'], results[i][0], results[i][1])
     html_str += '</tbody></table>'
+
+    return JsonResponse({'type': 'success', 'title': 'Success!', 'mess': 'Lorem ipsum', 'html': html_str})
+
+
+def run_similarity_words(request):
+    model = load_model(int(request.POST['model_id']))
+
+    word1 = request.POST['word1']
+
+    word2 = request.POST['word2']
+
+    results = model.similarity(word1, word2)
+
+    html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
+               '<tr><th> Word1 </th><th> Word2 </th><th class="text-right"> Similarity </th></tr></thead><tbody>' \
+               f'<tr><td>{word1}</td><td>{word2}</td><td class="text-right">{round(float(results), 4)}</td></tr></tbody></table>'
 
     return JsonResponse({'type': 'success', 'title': 'Success!', 'mess': 'Lorem ipsum', 'html': html_str})

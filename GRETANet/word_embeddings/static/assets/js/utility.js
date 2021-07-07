@@ -2,7 +2,8 @@ $(document).ready(function () {
     NW_demo()
     NW_show()
 
-
+    SW_demo()
+    SW_show()
 
 });
 
@@ -60,7 +61,58 @@ function NW_show() {
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
             console.log('POST run_NW', data)
-            $('#results_analysis').append(data['html'])
+            $('#results_analysis').html('').append(data['html'])
+        }, "json");
+    });
+}
+
+function SW_demo() {
+    $("#SW_demo").click(function () {
+        let word1 = $('#SW_word1')
+        word1.val('tumor')
+        console.log('SW_demo -> word1', word1.val());
+
+        let word2 = $('#SW_word2')
+        word2.val('cancer')
+        console.log('SW_demo -> word2', word2.val());
+    });
+}
+
+function SW_show() {
+    $("#SW_show").click(function () {
+        let model_id = getModel()
+        console.log('SW_show -> model_id', model_id);
+
+        let word1 = $('#SW_word1')
+        console.log('SW_show -> word1', word1.val());
+
+        let word2 = $('#SW_word2')
+        console.log('SW_show -> word2', word2.val());
+
+        if(word1.val() === '') {
+            word1.parent('.form-group').attr('class', 'form-group has-danger')
+            word1.attr("class", 'form-control form-control-danger')
+        } else {
+            word1.parent('.form-group').attr('class', 'form-group has-success')
+            word1.attr("class", 'form-control form-control-success')
+        }
+
+        if(word2.val() === '') {
+            word2.parent('.form-group').attr('class', 'form-group has-danger')
+            word2.attr("class", 'form-control form-control-danger')
+        } else {
+            word2.parent('.form-group').attr('class', 'form-group has-success')
+            word2.attr("class", 'form-control form-control-success')
+        }
+
+        $.post(url_run_similarity_words, {
+            'model_id': model_id,
+            'word1': word1.val(),
+            'word2': word2.val(),
+            'csrfmiddlewaretoken': csrf_token,
+        }, function (data) {
+            console.log('POST run_SW', data)
+            $('#results_analysis').html('').append(data['html'])
         }, "json");
     });
 }
