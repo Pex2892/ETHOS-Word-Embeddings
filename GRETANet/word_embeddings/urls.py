@@ -1,7 +1,8 @@
 from django.urls import path
-
 from . import views
 
 urlpatterns = [
     path('', views.index, name='word-embeddings'),
+    path('runNearestWords/', views.run_nearest_words, name='run-nearest-words'),
+    path('runSimilarityWords/', views.run_similarity_words, name='run-similarity-words'),
 ]
