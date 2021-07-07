@@ -19,8 +19,6 @@ function NW_demo() {
         let negative_words = $('#NW_negative_words')
         negative_words.val('death')
         console.log('NW_show -> negative_words', negative_words.val());
-
-        NW_show()
     });
 }
 
@@ -54,6 +52,15 @@ function NW_show() {
             negative_words.attr("class", 'form-control form-control-success')
         }
 
-        
+        $.post(url_run_nearest_words, {
+            'model_id': model_id,
+            'positive_words': positive_words.val(),
+            'negative_words': negative_words.val(),
+            'topn': topn.val(),
+            'csrfmiddlewaretoken': csrf_token,
+        }, function (data) {
+            console.log('POST run_NW', data)
+            $('#results_analysis').append(data['html'])
+        }, "json");
     });
 }
