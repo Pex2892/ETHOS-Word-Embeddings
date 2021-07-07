@@ -78,9 +78,9 @@
                                                     <div class="form-group">
                                                         <label class="text-secondary font-weight-bold">Example select</label>
                                                         <select class="form-control" id="model">
-                                                            <option value="1">GRETANet – N° Bilions</option>
-                                                            <option value="2">GoogleNet – N° Bilions</option>
-                                                            <option value="3">GlooveNet – N° Bilions</option>
+                                                            <option value="0">GRETA – N° Bilions</option>
+                                                            <option value="1">GoogleNews – N° Bilions</option>
+                                                            <option value="2">GloVe – N° Bilions</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -236,7 +236,7 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Results</h4>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" id="results_analysis">
 
                                 </div>
                             </div>
@@ -298,6 +298,10 @@
         <script src="{% static 'assets/demo/demo.js' %}"></script>
 
         <!-- Functions of this page -->
-        <script src="{% static 'assets/js/utility.js' %}"></script>
+        <script>
+            var url_run_nearest_words = "{% url 'run-nearest-words' %}";
+            var csrf_token = "{{ csrf_token }}"
+        </script>
+        <script src="{% static 'assets/js/utility.js' %}" type="text/javascript"></script>
     </body>
 </html>
