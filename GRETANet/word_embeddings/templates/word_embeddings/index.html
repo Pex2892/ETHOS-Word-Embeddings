@@ -91,9 +91,24 @@
                                                     <div class="form-group">
                                                         <label class="text-secondary font-weight-bold">Example select</label>
                                                         <select class="form-control" id="model">
-                                                            <option value="0">GRETA – N° Bilions</option>
-                                                            <option value="1">GoogleNews – N° Bilions</option>
-                                                            <option value="2">GloVe – N° Bilions</option>
+                                                            <optgroup label="Custom models">
+                                                                <option value="0">GRETA (xy)</option>
+                                                            </optgroup>
+                                                            <optgroup label="Google models">
+                                                                <option value="1">GoogleNews (xy)</option>
+                                                            </optgroup>
+                                                            <optgroup label="GloVe models">
+                                                                <option value="2">GloVe Wikipedia+Gigaword (6 Bilions tokens, 50d vectors)</option>
+                                                                <option value="3">GloVe Wikipedia+Gigaword (6 Bilions tokens, 100d vectors)</option>
+                                                                <option value="4">GloVe Wikipedia+Gigaword (6 Bilions tokens, 200d vectors)</option>
+                                                                <option value="5">GloVe Wikipedia+Gigaword (6 Bilions tokens, 300d vectors)</option>
+                                                                <option value="6">GloVe Common Crawl (42 Bilions tokens, 300d vectors)</option>
+                                                                <option value="7">GloVe Common Crawl (840 Bilions tokens, 300d vectors)</option>
+                                                                <option value="8">GloVe Twitter (27 Bilions tokens, 25d vectors)</option>
+                                                                <option value="9">GloVe Twitter (27 Bilions tokens, 50d vectors)</option>
+                                                                <option value="10">GloVe Twitter (27 Bilions tokens, 100d vectors)</option>
+                                                                <option value="11">GloVe Twitter (27 Bilions tokens, 200d vectors)</option>
+                                                            </optgroup>
                                                         </select>
                                                     </div>
                                                 </div>
