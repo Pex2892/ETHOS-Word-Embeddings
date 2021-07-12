@@ -60,3 +60,16 @@ def run_similarity_words(request):
                f'<tr><td>{word1}</td><td>{word2}</td><td class="text-right">{round(float(results), 4)}</td></tr></tbody></table>'
 
     return JsonResponse({'type': 'success', 'title': 'Success!', 'mess': 'Lorem ipsum', 'html': html_str})
+
+
+def run_word_analogy(request):
+    model = load_model(int(request.POST['model_id']))
+
+    word1 = request.POST['word1']
+
+    word2 = request.POST['word2']
+
+    word3 = request.POST['word3']
+
+    results = model.most_similar(positive=[word3, word2], negative=[word1])
+    print(results)
