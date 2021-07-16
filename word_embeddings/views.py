@@ -5,6 +5,9 @@ from django.http import JsonResponse
 import os
 from .utility import load_model
 
+model_ids_previous = []
+model_loaded = []
+
 
 def index(request):
     data = {
@@ -16,20 +19,37 @@ def index(request):
 
 
 def run_nearest_words(request):
-    model = load_model(int(request.POST['model_id']))
+    global model_ids_previous
+    global model_loaded
 
-    positive_words = request.POST['positive_words'].split(',')
+    if len(model_ids_previous) == 0 or int(request.POST['model_id']) not in model_ids_previous:
+        model_ids_previous.append(int(request.POST['model_id']))
+        model_loaded.append(load_model(int(request.POST['model_id'])))
 
-    negative_words = request.POST['negative_words'].split(',')
+    positive_words = request.POST['positive_words'].strip()
+    if positive_words == '':
+        positive_words = None
+    else:
+        positive_words = positive_words.split(',')
+
+    negative_words = request.POST['negative_words'].strip()
+    if negative_words == '':
+        negative_words = None
+    else:
+        negative_words = negative_words.split(',')
 
     topn = int(request.POST['topn'])
 
-    if positive_words != '' and negative_words == '':
-        results = model.most_similar(positive=positive_words, topn=topn)
-    elif positive_words == '' and negative_words != '':
-        results = model.most_similar(negative=negative_words, topn=topn)
-    elif positive_words != '' and negative_words != '':
-        results = model.most_similar(positive=positive_words, negative=negative_words, topn=topn)
+    if positive_words is not None and negative_words is None:
+        results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(positive=positive_words, topn=topn)
+    elif positive_words is None and negative_words is not None:
+        results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(negative=negative_words, topn=topn)
+    elif positive_words is not None and negative_words is not None:
+        results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(positive=positive_words, negative=negative_words, topn=topn)
+    else:
+        return JsonResponse({'type': 'error', 'title': 'Errore', 'mess': 'Lorem ipsum', 'html': ''})
+
+    # BISOGNA GESTIRE CON IL TRY LA NON PRESENZA DI UNA DELLE CHIAVI
 
     # print(results)
 
