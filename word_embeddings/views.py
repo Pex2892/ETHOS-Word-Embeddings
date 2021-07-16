@@ -9,7 +9,7 @@ from .utility import load_model
 def index(request):
     data = {
         'appname': 'word_embeddings',
-        'title': 'Word Embeddings – GRETANet',
+        'title': 'Word Embeddings – ETHOS (fEatures TecHniques Outcomes Survey)',
         'media_path': settings.MEDIA_URL,
     }
     return render(request, 'word_embeddings/index.html', data)
