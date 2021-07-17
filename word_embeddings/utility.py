@@ -11,9 +11,7 @@ def load_model(model_id):
         'ETHOS.model',
         'pubmed...',
         'glove.6B.100d.txt',
-        'glove.twitter.27B.50d.txt',
         'fast',
-        'google',
     ]
 
     if model_id == 0:
@@ -22,6 +20,6 @@ def load_model(model_id):
         model = KeyedVectors.load_word2vec_format(os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id]))
         # model = api.load(list_models[model_id])
 
-    print(f'Carico il modello: {list_models[model_id]}')
+    # print(f'Carico il modello: {list_models[model_id]}')
 
     return model
