@@ -6,6 +6,7 @@ $(document).ready(function () {
     SW_show()
 
     WA_demo()
+    WA_show()
 });
 
 function getModel() {
@@ -38,21 +39,29 @@ function NW_show() {
         let topn = $('#NW_topn')
         console.log('NW_show -> topn', topn.val());
 
-        /*if(positive_words.val() === '') {
-            positive_words.parent('.form-group').attr('class', 'form-group has-danger')
-            positive_words.attr("class", 'form-control form-control-danger')
-        } else {
-            positive_words.parent('.form-group').attr('class', 'form-group has-success')
-            positive_words.attr("class", 'form-control form-control-success')
-        }*/
+        if(positive_words.val().trim() === '' && negative_words.val().trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: '<b>An error has occurred</b>',
+                html: 'You have not entered any words.<br />Please try again.',
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+            })
+            return 0
+        }
 
-        /*if(negative_words.val() === '') {
-            negative_words.parent('.form-group').attr('class', 'form-group has-danger')
-            negative_words.attr("class", 'form-control form-control-danger')
-        } else {
-            negative_words.parent('.form-group').attr('class', 'form-group has-success')
-            negative_words.attr("class", 'form-control form-control-success')
-        }*/
+        Swal.fire({
+            title: 'Running',
+            html: 'Wait!<br />It will take a few minutes to complete',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+                $('#results_analysis').html('')
+            }
+        })
 
         $.post(url_run_nearest_words, {
             'model_id': model_id,
@@ -62,7 +71,18 @@ function NW_show() {
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
             console.log('POST run_NW', data)
-            $('#results_analysis').html('').append(data['html'])
+
+            Swal.fire({
+                icon: data.type,
+                title: data.title,
+                html: data.message,
+                showConfirmButton: true,
+                timer: 0,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+                allowOutsideClick: false
+            })
+            $('#results_analysis').append(data['html'])
         }, "json");
     });
 }
@@ -90,21 +110,29 @@ function SW_show() {
         let word2 = $('#SW_word2')
         console.log('SW_show -> word2', word2.val());
 
-        if(word1.val() === '') {
-            word1.parent('.form-group').attr('class', 'form-group has-danger')
-            word1.attr("class", 'form-control form-control-danger')
-        } else {
-            word1.parent('.form-group').attr('class', 'form-group has-success')
-            word1.attr("class", 'form-control form-control-success')
+        if(word1.val().trim() === '' || word2.val().trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: '<b>An error has occurred</b>',
+                html: 'You must enter the two words.<br />Please try again.',
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+            })
+            return 0
         }
 
-        if(word2.val() === '') {
-            word2.parent('.form-group').attr('class', 'form-group has-danger')
-            word2.attr("class", 'form-control form-control-danger')
-        } else {
-            word2.parent('.form-group').attr('class', 'form-group has-success')
-            word2.attr("class", 'form-control form-control-success')
-        }
+        Swal.fire({
+            title: 'Running',
+            html: 'Wait!<br />It will take a few minutes to complete',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+                $('#results_analysis').html('')
+            }
+        })
 
         $.post(url_run_similarity_words, {
             'model_id': model_id,
@@ -113,7 +141,19 @@ function SW_show() {
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
             console.log('POST run_SW', data)
-            $('#results_analysis').html('').append(data['html'])
+
+            Swal.fire({
+                icon: data.type,
+                title: data.title,
+                html: data.message,
+                showConfirmButton: true,
+                timer: 0,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+                allowOutsideClick: false
+            })
+
+            $('#results_analysis').append(data['html'])
         }, "json");
     });
 }
@@ -148,39 +188,55 @@ function WA_show() {
         let word3 = $('#WA_word3')
         console.log('WA_show -> word3', word3.val());
 
-        if(word1.val() === '') {
-            word1.parent('.form-group').attr('class', 'form-group has-danger')
-            word1.attr("class", 'form-control form-control-danger')
-        } else {
-            word1.parent('.form-group').attr('class', 'form-group has-success')
-            word1.attr("class", 'form-control form-control-success')
+        let topn = $('#WA_topn')
+        console.log('WA_show -> topn', topn.val());
+
+        if(word1.val().trim() === '' || word2.val().trim() === '' || word3.val().trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: '<b>An error has occurred</b>',
+                html: 'You must enter the three words.<br />Please try again.',
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+            })
+            return 0
         }
 
-        if(word2.val() === '') {
-            word2.parent('.form-group').attr('class', 'form-group has-danger')
-            word2.attr("class", 'form-control form-control-danger')
-        } else {
-            word2.parent('.form-group').attr('class', 'form-group has-success')
-            word2.attr("class", 'form-control form-control-success')
-        }
-
-        if(word3.val() === '') {
-            word3.parent('.form-group').attr('class', 'form-group has-danger')
-            word3.attr("class", 'form-control form-control-danger')
-        } else {
-            word3.parent('.form-group').attr('class', 'form-group has-success')
-            word3.attr("class", 'form-control form-control-success')
-        }
+        Swal.fire({
+            title: 'Running',
+            html: 'Wait!<br />It will take a few minutes to complete',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+                $('#results_analysis').html('')
+            }
+        })
 
         $.post(url_run_word_analogy, {
             'model_id': model_id,
             'word1': word1.val(),
             'word2': word2.val(),
             'word3': word3.val(),
+            'topn': topn.val(),
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
             console.log('POST run_WA', data)
-            $('#results_analysis').html('').append(data['html'])
+
+            Swal.fire({
+                icon: data.type,
+                title: data.title,
+                html: data.message,
+                showConfirmButton: true,
+                timer: 0,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+                allowOutsideClick: false
+            })
+
+            $('#results_analysis').append(data['html'])
         }, "json");
     });
 }
