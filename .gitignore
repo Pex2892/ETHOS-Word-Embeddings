@@ -132,4 +132,4 @@ dmypy.json
 
 .DS_Store
 
-word_embeddings/static/models/*
+# word_embeddings/static/models/*
