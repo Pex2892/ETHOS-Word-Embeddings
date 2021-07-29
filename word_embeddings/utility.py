@@ -8,18 +8,19 @@ def load_model(model_id):
     # print(list(gensim.downloader.info()['models'].keys()))  # lista modelli
 
     list_models = [
-        'ETHOS.model',
-        'pubmed...',
-        'glove.6B.100d.txt',
-        'fast',
+        ('ETHOS.model', 'gensim'),
+        ('wikipedia-pubmed-and-PMC-w2v.bin', 'vector_binary'),
+        ('glove.6B.100d.txt', 'vector'),
+        ('wiki-news-300d-1M.vec', 'vector'),
     ]
 
-    if model_id == 0:
-        model = Word2Vec.load(os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id])).wv
-    elif model_id > 0:
-        model = KeyedVectors.load_word2vec_format(os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id]))
-        # model = api.load(list_models[model_id])
-
-    # print(f'Carico il modello: {list_models[model_id]}')
+    if list_models[model_id][1] == 'gensim':
+        model = Word2Vec.load(os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id][0])).wv
+    elif list_models[model_id][1] == 'vector':
+        model = KeyedVectors.load_word2vec_format(
+            os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id][0]))
+    elif list_models[model_id][1] == 'vector_binary':
+        model = KeyedVectors.load_word2vec_format(
+            os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id][0]), binary=True)
 
     return model
