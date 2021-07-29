@@ -9,10 +9,14 @@ def load_model(model_id):
 
     list_models = [
         ('ETHOS.model', 'gensim'),
+    ]
+
+    '''list_models = [
+        ('ETHOS.model', 'gensim'),
         ('wikipedia-pubmed-and-PMC-w2v.bin', 'vector_binary'),
         ('glove.6B.100d.txt', 'vector'),
         ('wiki-news-300d-1M.vec', 'vector'),
-    ]
+    ]'''
 
     if list_models[model_id][1] == 'gensim':
         model = Word2Vec.load(os.path.join(settings.STATIC_DIR_WE, 'models', list_models[model_id][0])).wv
