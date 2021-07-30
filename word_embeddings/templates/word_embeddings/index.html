@@ -5,8 +5,9 @@
         <meta charset="utf-8" />
         <title>{{ title }}</title>
 
-        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/favicon.ico' %}">
-        <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.ico' %}">
+        <!--<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/favicon.ico' %}">
+        <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.ico' %}">-->
+        <link rel="icon" type="image/png" href="{% static 'assets/img/ml_favicon_2.png' %}"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 
@@ -26,13 +27,13 @@
             <div class="main-panel">
                 <div class="content">
                     <div class="row justify-content-center">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body text-center">
                                             <a href="https://www.combine-group.org/" target="_blank">
-                                                <img src="{% static 'assets/img/combine_logo.png' %}" width="100px" height="100px"/>
+                                                <img src="{% static 'assets/img/combine_logo.png' %}" width="100px" height="75px"/>
                                             </a>
                                         </div>
                                     </div>
@@ -41,7 +42,7 @@
                                     <div class="card">
                                         <div class="card-body text-center">
                                             <a href="https://www.unict.it/" target="_blank">
-                                                <img src="{% static 'assets/img/unict_logo.png' %}" width="125px" height="100px"/>
+                                                <img src="{% static 'assets/img/unict_logo.png' %}" width="125px" height="75px"/>
                                             </a>
                                         </div>
                                     </div>
@@ -50,26 +51,32 @@
                                     <div class="card">
                                         <div class="card-body text-center">
                                             <a href="https://greta.maurizionava.it/" target="_blank">
-                                                <img src="{% static 'assets/img/greta_logo.png' %}" width="125px" height="100px"/>
+                                                <img src="{% static 'assets/img/greta_logo.png' %}" width="125px" height="75px"/>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title">About</h5>
+                                <div class="card-header font-weight-bold">
+                                    <h5 class="card-title">Evaluation of Word embedding models to extract and predict surgical data in breast cancer</h5>
+                                    <a href="#">DOI: XXXXXXX</a>
                                 </div>
                                 <div class="card-body text-justify">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                        sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
+                                    Decisions in healthcare are usually relying on the goodness and completeness of data,
+                                    that could be coupled with heuristics with the aim to improve the decision process itself.
+                                    However, this often an incomplete process. Structured interviews denominated Delphi surveys investigate experts'
+                                    opinions and solve by consensus complex matters like those underlying surgical decision-making.<br />
+                                    Natural Language Processing (NLP) is a field of study that combines computer science, artificial intelligence, and linguistics.
+                                    NLP can be then used as a valuable help in building a correct context in surgical data, contributing in
+                                    the amelioration of the surgical decision-making.<br />
+                                    We applied NLP coupled with machine learning approaches to predict the context (words)
+                                    owning high accuracy from the words that are nearest to Delphi surveys, used as input.<br />
+                                    The proposed methodology has allowed to increase the usefulness of Delphi surveys favouring the extraction
+                                    of keywords that can represent a specific clinical context.
+                                    This permits the characterization of the clinical context suggesting words for the evaluation process of the data.
                                 </div>
                             </div>
                         </div>
@@ -80,7 +87,7 @@
                                 <div class="col-md-2">
                                     <div class="card card-user">
                                         <div class="card-header">
-                                            <h5 class="card-title">Models</h5>
+                                            <h5 class="card-title font-weight-bold">Models</h5>
                                         </div>
                                         <div class="card-body">
                                             <hr />
@@ -108,7 +115,7 @@
                                 <div class="col-md-4">
                                     <div class="card card-user">
                                         <div class="card-header">
-                                            <h5 class="card-title">Nearest words</h5>
+                                            <h5 class="card-title font-weight-bold">Nearest words</h5>
                                         </div>
                                         <div class="card-body">
                                             <hr />
@@ -161,7 +168,7 @@
                                 <div class="col-md-3">
                                     <div class="card card-user">
                                         <div class="card-header">
-                                            <h5 class="card-title">Similarity of two words</h5>
+                                            <h5 class="card-title font-weight-bold">Similarity of two words</h5>
                                         </div>
                                         <div class="card-body">
                                             <hr />
@@ -193,7 +200,7 @@
                                 <div class="col-md-3">
                                     <div class="card card-user">
                                         <div class="card-header">
-                                            <h5 class="card-title">Word analogy</h5>
+                                            <h5 class="card-title font-weight-bold">Word analogy</h5>
                                         </div>
                                         <div class="card-body">
                                             <hr />
@@ -335,7 +342,7 @@
                              </div>--->
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row invisible">
                         <div class="col-md-6">
                             <div class="card card-user">
                                 <div class="card-header">

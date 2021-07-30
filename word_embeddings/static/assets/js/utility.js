@@ -27,6 +27,8 @@ function NW_demo() {
 
 function NW_show() {
     $("#NW_show").click(function () {
+        $('div.row.visible').removeClass('visible').addClass('invisible')
+
         let model_id = getModel()
         console.log('NW_show -> model_id', model_id);
 
@@ -72,6 +74,11 @@ function NW_show() {
         }, function (data) {
             console.log('POST run_NW', data)
 
+            if (data.type === 'success') {
+                $('#results_analysis').append(data['html'])
+                $('div.row.invisible').removeClass('invisible').addClass('visible')
+            }
+
             Swal.fire({
                 icon: data.type,
                 title: data.title,
@@ -82,7 +89,7 @@ function NW_show() {
                 confirmButtonColor: '#145da0',
                 allowOutsideClick: false
             })
-            $('#results_analysis').append(data['html'])
+
         }, "json");
     });
 }
@@ -101,6 +108,8 @@ function SW_demo() {
 
 function SW_show() {
     $("#SW_show").click(function () {
+        $('div.row.visible').removeClass('visible').addClass('invisible')
+
         let model_id = getModel()
         console.log('SW_show -> model_id', model_id);
 
@@ -142,6 +151,11 @@ function SW_show() {
         }, function (data) {
             console.log('POST run_SW', data)
 
+            if (data.type === 'success') {
+                $('#results_analysis').append(data['html'])
+                $('div.row.invisible').removeClass('invisible').addClass('visible')
+            }
+
             Swal.fire({
                 icon: data.type,
                 title: data.title,
@@ -152,8 +166,6 @@ function SW_show() {
                 confirmButtonColor: '#145da0',
                 allowOutsideClick: false
             })
-
-            $('#results_analysis').append(data['html'])
         }, "json");
     });
 }
@@ -176,6 +188,8 @@ function WA_demo() {
 
 function WA_show() {
     $("#WA_show").click(function () {
+        $('div.row.visible').removeClass('visible').addClass('invisible')
+
         let model_id = getModel()
         console.log('WA_show -> model_id', model_id);
 
@@ -225,6 +239,11 @@ function WA_show() {
         }, function (data) {
             console.log('POST run_WA', data)
 
+            if (data.type === 'success') {
+                $('#results_analysis').append(data['html'])
+                $('div.row.invisible').removeClass('invisible').addClass('visible')
+            }
+
             Swal.fire({
                 icon: data.type,
                 title: data.title,
@@ -235,8 +254,6 @@ function WA_show() {
                 confirmButtonColor: '#145da0',
                 allowOutsideClick: false
             })
-
-            $('#results_analysis').append(data['html'])
         }, "json");
     });
 }
