@@ -62,7 +62,7 @@
                             <div class="card">
                                 <div class="card-header font-weight-bold">
                                     <h5 class="card-title">Evaluation of Word embedding models to extract and predict surgical data in breast cancer</h5>
-                                    <a href="#">DOI: XXXXXXX</a>
+                                    <h6><a href="#">DOI: XXXXXXX</a></h6>
                                 </div>
                                 <div class="card-body text-justify">
                                     Decisions in healthcare are usually relying on the goodness and completeness of data,
@@ -90,8 +90,7 @@
                                             <h5 class="card-title font-weight-bold">Models</h5>
                                         </div>
                                         <div class="card-body">
-                                            <hr />
-                                            <p>Select one of the available models</p>
+                                            Select one of the available models
                                             <hr />
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -118,8 +117,7 @@
                                             <h5 class="card-title font-weight-bold">Nearest words</h5>
                                         </div>
                                         <div class="card-body">
-                                            <hr />
-                                            <p>Given a word, this demo shows a list of other words that are similar to it, i.e. nearby in the vector space.</p>
+                                            Given a word, this demo shows a list of other words that are similar to it, i.e. nearby in the vector space.
                                             <hr />
                                             <div class="row">
                                                 <div class="col-md-9">
@@ -171,8 +169,7 @@
                                             <h5 class="card-title font-weight-bold">Similarity of two words</h5>
                                         </div>
                                         <div class="card-body">
-                                            <hr />
-                                            <p>Given two words, this demo gives the similarity value between 1 and -1.</p>
+                                            Given two words, this demo gives the similarity value between 1 and -1.
                                             <hr />
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -203,8 +200,8 @@
                                             <h5 class="card-title font-weight-bold">Word analogy</h5>
                                         </div>
                                         <div class="card-body">
-                                            <hr />
-                                            <p>This demo computes word analogy: the first word is to the second word like the third word is to which word? Try for example (air - bird - water) which would expect to return (fish) because fish is to water like birs is to air. </p>
+                                                This method computes word analogy: the first word is to the second word like the third word is to which word?
+                                                Try for example (tumor - cancer - woman) which would expect to return: breast, risk and more.
                                             <hr />
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -249,97 +246,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                              </div>
-                             <!--<div class="row">
-                                <div class="col-md-6">
-                                    <div class="card card-user">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Similarity of two words</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <hr />
-                                            <p>Given two words, this demo gives the similarity value between 1 and -1.</p>
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 1</label>
-                                                        <input type="text" id="SW_word1" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 2</label>
-                                                        <input type="text" id="SW_word2" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="update ml-auto mr-auto">
-                                                    <button id="SW_demo" class="btn btn-danger btn-round">Demo</button>
-                                                    <button id="SW_show" type="submit" class="btn btn-primary btn-round">Show similarity</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card card-user">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Word analogy</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <hr />
-                                            <p>This demo computes word analogy: the first word is to the second word like the third word is to which word? Try for example ilma - lintu - vesi (air - bird - water) which would expect to return kala (fish) because fish is to water like birs is to air. </p>
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="text-secondary font-weight-bold">Word 1</label>
-                                                                <input type="text" id="WA_word1" class="form-control" placeholder="Type in a word" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="text-secondary font-weight-bold">Word 2</label>
-                                                                <input type="text" id="WA_word2" class="form-control" placeholder="Type in a word" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="text-secondary font-weight-bold">Word 3</label>
-                                                                <input type="text" id="WA_word3" class="form-control" placeholder="Type in a word" required>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Number of words</label>
-                                                        <select class="form-control" id="WA_topn">
-                                                            <option value="5">5</option>
-                                                            <option value="10" selected>10</option>
-                                                            <option value="25">25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="100">100</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="update ml-auto mr-auto">
-                                                    <button id="WA_demo" class="btn btn-danger btn-round">Demo</button>
-                                                    <button id="WA_show" type="submit" class="btn btn-primary btn-round">Show analogy</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>--->
                         </div>
                     </div>
                     <div class="row invisible">
