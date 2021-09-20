@@ -103,7 +103,7 @@ def run_similarity_words(request):
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
 
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
-               '<tr><th> Word1 </th><th> Word2 </th><th class="text-right"> Similarity </th></tr></thead><tbody>' \
+               '<tr><th> Words 1 </th><th> Words 2 </th><th class="text-right"> Similarity </th></tr></thead><tbody>' \
                f'<tr><td>{request.POST["words_1"].strip()}</td><td>{request.POST["words_2"].strip()}</td><td class="text-right">{round(float(results), 4)}</td>' \
                f'</tr></tbody></table>'
 
