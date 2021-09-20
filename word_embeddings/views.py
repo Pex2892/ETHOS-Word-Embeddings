@@ -40,6 +40,8 @@ def run_nearest_words(request):
 
     topn = int(request.POST['topn'])
 
+    print('-->', model_loaded[model_ids_previous.index(int(request.POST['model_id']))].n_similarity(['fat', 'donor'], ['sites']))
+
     try:
         if positive_words is not None and negative_words is None:
             results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(
@@ -79,32 +81,34 @@ def run_similarity_words(request):
         model_ids_previous.append(int(request.POST['model_id']))
         model_loaded.append(load_model(int(request.POST['model_id'])))
 
-    word1 = request.POST['word1']
-    if word1 == '':
-        word1 = None
+    words_1 = request.POST['words_1'].strip()
+    if words_1 == '':
+        words_1 = None
+    else:
+        words_1 = words_1.split(',')
 
-    word2 = request.POST['word2']
-    if word2 == '':
-        word2 = None
-
+    words_2 = request.POST['words_2'].strip()
+    if words_2 == '':
+        words_2 = None
+    else:
+        words_2 = words_2.split(',')
     try:
-        if word1 is not None and word2 is not None:
-            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].similarity(word1, word2)
-        else:
+        if words_1 is None or words_2 is None:
             return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                                  'message': 'You have not entered any words.<br />Please try again.', 'html': ''})
+        elif words_1 is not None and words_2 is not None:
+            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].n_similarity(words_1, words_2)
     except KeyError as ke:
         return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
 
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
                '<tr><th> Word1 </th><th> Word2 </th><th class="text-right"> Similarity </th></tr></thead><tbody>' \
-               f'<tr><td>{word1}</td><td>{word2}</td><td class="text-right">{round(float(results), 4)}</td>' \
+               f'<tr><td>{request.POST["words_1"].strip()}</td><td>{request.POST["words_2"].strip()}</td><td class="text-right">{round(float(results), 4)}</td>' \
                f'</tr></tbody></table>'
 
     return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
                          'html': html_str})
-
 
 def run_word_analogy(request):
     global model_ids_previous

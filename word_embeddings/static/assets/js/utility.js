@@ -96,13 +96,13 @@ function NW_show() {
 
 function SW_demo() {
     $("#SW_demo").click(function () {
-        let word1 = $('#SW_word1')
+        let word1 = $('#SW_words_1')
         word1.val('tumor')
-        console.log('SW_demo -> word1', word1.val());
+        console.log('SW_demo -> words1', word1.val());
 
-        let word2 = $('#SW_word2')
+        let word2 = $('#SW_words_2')
         word2.val('cancer')
-        console.log('SW_demo -> word2', word2.val());
+        console.log('SW_demo -> words2', word2.val());
     });
 }
 
@@ -113,17 +113,17 @@ function SW_show() {
         let model_id = getModel()
         console.log('SW_show -> model_id', model_id);
 
-        let word1 = $('#SW_word1')
-        console.log('SW_show -> word1', word1.val());
+         let words_1 = $('#SW_words_1')
+        console.log('SW_show -> SW_words_1', words_1.val());
 
-        let word2 = $('#SW_word2')
-        console.log('SW_show -> word2', word2.val());
+        let words_2 = $('#SW_words_2')
+        console.log('SW_show -> SW_words_1', words_2.val());
 
-        if(word1.val().trim() === '' || word2.val().trim() === '') {
+        if(words_1.val().trim() === '' || words_2.val().trim() === '') {
             Swal.fire({
                 icon: 'error',
                 title: '<b>An error has occurred</b>',
-                html: 'You must enter the two words.<br />Please try again.',
+                html: 'You have not entered any words.<br />Please try again.',
                 showCloseButton: true,
                 showCancelButton: false,
                 focusConfirm: false,
@@ -145,8 +145,8 @@ function SW_show() {
 
         $.post(url_run_similarity_words, {
             'model_id': model_id,
-            'word1': word1.val(),
-            'word2': word2.val(),
+            'words_1': words_1.val(),
+            'words_2': words_2.val(),
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
             console.log('POST run_SW', data)

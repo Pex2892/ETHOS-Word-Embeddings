@@ -169,19 +169,19 @@
                                             <h5 class="card-title font-weight-bold">Similarity of two words</h5>
                                         </div>
                                         <div class="card-body">
-                                            Given two words, this demo gives the similarity value between 1 and -1.
+                                            Given two or more words, it returns their similarity between 0 and 1.
                                             <hr />
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 1</label>
-                                                        <input type="text" id="SW_word1" class="form-control" placeholder="Type in a word" required>
+                                                        <label class="text-secondary font-weight-bold">Words 1<span class="text-danger font-weight-bold">*</span></label>
+                                                        <input type="text" id="SW_words_1" class="form-control" placeholder="Type in a word" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 2</label>
-                                                        <input type="text" id="SW_word2" class="form-control" placeholder="Type in a word" required>
+                                                        <label class="text-secondary font-weight-bold">Words 2<span class="text-danger font-weight-bold">*</span></label>
+                                                        <input type="text" id="SW_words_2" class="form-control" placeholder="Type in a word" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,6 +191,9 @@
                                                     <button id="SW_show" type="submit" class="btn btn-primary btn-round">Show similarity</button>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            <span class="text-danger font-weight-bold"> * Comma separated – (i.e.: Word1,Word2,...,Wordn)</span>
                                         </div>
                                     </div>
                                 </div>
