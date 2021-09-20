@@ -40,8 +40,6 @@ def run_nearest_words(request):
 
     topn = int(request.POST['topn'])
 
-    print('-->', model_loaded[model_ids_previous.index(int(request.POST['model_id']))].n_similarity(['fat', 'donor'], ['sites']))
-
     try:
         if positive_words is not None and negative_words is None:
             results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(
@@ -60,11 +58,11 @@ def run_nearest_words(request):
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
 
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
-               '<tr><th> Pos. words </th><th> Neg. words </th><th> Results </th>' \
+               '<tr><th> Position </th><th> Pos. words </th><th> Neg. words </th><th> Results </th>' \
                '<th class="text-right"> Score </th></tr></thead><tbody>'
 
     for i in range(0, len(results)):
-        html_str += f'<tr><td>{request.POST["positive_words"]}</td><td>{request.POST["negative_words"]}</td>' \
+        html_str += f'<tr><td>{(i+1)}</td><td>{request.POST["positive_words"]}</td><td>{request.POST["negative_words"]}</td>' \
                     f'<td>{results[i][0]}</td><td class="text-right">{round(results[i][1], 4)}</td></tr>'
         # print(request.POST['positive_words'], request.POST['negative_words'], results[i][0], results[i][1])
     html_str += '</tbody></table>'
@@ -144,11 +142,11 @@ def run_word_analogy(request):
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
 
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
-               '<tr><th> Word 1 </th><th> Word 2 </th><th> Word 3 </th><th> Results </th>' \
+               '<tr><th> Position </th><th> Word 1 </th><th> Word 2 </th><th> Word 3 </th><th> Results </th>' \
                '<th class="text-right"> Score </th></tr></thead><tbody>'
 
     for i in range(0, len(results)):
-        html_str += f'<tr><td>{word1}</td><td>{word2}</td><td>{word3}</td><td>{results[i][0]}</td>' \
+        html_str += f'<tr><td>{(i+1)}</td><td>{word1}</td><td>{word2}</td><td>{word3}</td><td>{results[i][0]}</td>' \
                     f'<td class="text-right">{round(results[i][1], 4)}</td></tr>'
     html_str += '</tbody></table>'
 
