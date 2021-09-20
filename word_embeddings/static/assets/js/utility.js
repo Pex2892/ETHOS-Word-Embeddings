@@ -97,7 +97,7 @@ function NW_show() {
 function SW_demo() {
     $("#SW_demo").click(function () {
         let word1 = $('#SW_words_1')
-        word1.val('tumor')
+        word1.val('tumour')
         console.log('SW_demo -> words1', word1.val());
 
         let word2 = $('#SW_words_2')
@@ -173,7 +173,7 @@ function SW_show() {
 function WA_demo() {
     $("#WA_demo").click(function () {
         let word1 = $('#WA_word1')
-        word1.val('tumor')
+        word1.val('tumour')
         console.log('WA_demo -> word1', word1.val());
 
         let word2 = $('#WA_word2')
