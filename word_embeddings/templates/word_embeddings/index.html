@@ -21,13 +21,12 @@
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{% static 'assets/demo/demo.css' %}" rel="stylesheet" />
     </head>
-
     <body>
         <div class="wrapper">
             <div class="main-panel">
                 <div class="content">
-                    <div class="row justify-content-center">
-                        <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="card">
@@ -57,9 +56,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title font-weight-bold">Models</h5>
+                                            Select one of the available models
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="model">
+                                                            <optgroup label="Our models">
+                                                                <option value="0">ETHOS (2.2 Bilions tokens, 300d vectors)</option>
+                                                            </optgroup>
+                                                            <!--<optgroup label="Other models">
+                                                                <option value="1">PubMed+PMC+Wikipedia (5.5 Milions tokens, 200d vectors)</option>
+                                                                <option value="2">GloVe Wikipedia+Gigaword (6 Bilions tokens, 100d vectors)</option>
+                                                                <option value="3">fastText WikiNews (16 Bilions tokens, 300d vectors)</option>
+                                                            </optgroup>-->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <div class="card">
+                        <div class="col-md-8">
+                        <div class="card">
                                 <div class="card-header font-weight-bold">
                                     <h5 class="card-title">Evaluation of Word embedding models to extract and predict surgical data in breast cancer</h5>
                                     <h6><a href="#">DOI: XXXXXXX</a></h6>
@@ -82,201 +108,209 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                             <div class="row">
-                                <div class="col-md-2">
-                                    <div class="card card-user">
-                                        <div class="card-header">
-                                            <h5 class="card-title font-weight-bold">Models</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            Select one of the available models
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <select class="form-control" id="model">
-                                                            <optgroup label="Our models">
-                                                                <option value="0">ETHOS (2.2 Bilions tokens, 300d vectors)</option>
-                                                            </optgroup>
-                                                            <!--<optgroup label="Other models">
-                                                                <option value="1">PubMed+PMC+Wikipedia (5.5 Milions tokens, 200d vectors)</option>
-                                                                <option value="2">GloVe Wikipedia+Gigaword (6 Bilions tokens, 100d vectors)</option>
-                                                                <option value="3">fastText WikiNews (16 Bilions tokens, 300d vectors)</option>
-                                                            </optgroup>-->
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card card-user">
-                                        <div class="card-header">
-                                            <h5 class="card-title font-weight-bold">Nearest words</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            Given a word, this demo shows a list of other words that are similar to it, i.e. nearby in the vector space.
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">
-                                                            Positive words<span class="text-danger font-weight-bold">*</span>
-                                                        </label>
-                                                        <input type="text" id="NW_positive_words" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">#Words</label>
-                                                        <select class="form-control" id="NW_topn">
-                                                            <option value="10">10</option>
-                                                            <option value="25" selected>25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="100">100</option>
-                                                            <option value="200">200</option>
-                                                            <option value="500">500</option>
-                                                            <option value="1000">1000</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">
-                                                            Negative words<span class="text-danger font-weight-bold">*</span>
-                                                        </label>
-                                                        <input type="text" id="NW_negative_words" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="update ml-auto mr-auto">
-                                                    <button id="NW_demo" class="btn btn-danger btn-round">Demo</button>
-                                                    <button id="NW_show" class="btn btn-primary btn-round">Show nearest</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer text-muted">
-                                            <span class="text-danger font-weight-bold"> * Comma separated – (i.e.: Word1,Word2,...,Wordn)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card card-user">
-                                        <div class="card-header">
-                                            <h5 class="card-title font-weight-bold">Similarity of two words</h5>
-                                        </div>
-
-                                        <div class="card-body">
-                                            Given two or more words, it returns their similarity between 0 and 1.
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">
-                                                            Words 1<span class="text-danger font-weight-bold">*</span>
-                                                        </label>
-                                                        <input type="text" id="SW_words_1" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">
-                                                            Words 2<span class="text-danger font-weight-bold">*</span>
-                                                        </label>
-                                                        <input type="text" id="SW_words_2" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="update ml-auto mr-auto">
-                                                    <button id="SW_demo" class="btn btn-danger btn-round">Demo</button>
-                                                    <button id="SW_show" class="btn btn-primary btn-round">Show similarity</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer text-muted">
-                                            <span class="text-danger font-weight-bold"> * Comma separated – (i.e.: Word1,Word2,...,Wordn)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card card-user">
-                                        <div class="card-header">
-                                            <h5 class="card-title font-weight-bold">Word analogy</h5>
-                                        </div>
-                                        <div class="card-body">
-                                                This method computes word analogy: the first word is to the second word like the third word is to which word?
-                                                Try for example (tumor - cancer - woman) which would expect to return: breast, risk and more.
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 1</label>
-                                                        <input type="text" id="WA_word1" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 2</label>
-                                                        <input type="text" id="WA_word2" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">Word 3</label>
-                                                        <input type="text" id="WA_word3" class="form-control" placeholder="Type in a word" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label class="text-secondary font-weight-bold">#Words</label>
-                                                        <select class="form-control" id="WA_topn">
-                                                            <option value="10">10</option>
-                                                            <option value="25" selected>25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="100">100</option>
-                                                            <option value="200">200</option>
-                                                            <option value="500">500</option>
-                                                            <option value="1000">1000</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="update ml-auto mr-auto">
-                                                    <button id="WA_demo" class="btn btn-danger btn-round">Demo</button>
-                                                    <button id="WA_show" type="submit" class="btn btn-primary btn-round">Show analogy</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
-                    </div>
-                    <div class="row invisible">
                         <div class="col-md-6">
+                            <div class="card card-body">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-nw-tab" data-toggle="tab" href="#nav-nw" role="tab" aria-controls="nav-home" aria-selected="true"><span class="font-weight-bold">Nearest words</span></a>
+                                        <a class="nav-item nav-link" id="nav-sw-tab" data-toggle="tab" href="#nav-sw" role="tab" aria-controls="nav-profile" aria-selected="false"><span class="font-weight-bold">Similarity among words</span></a>
+                                        <a class="nav-item nav-link" id="nav-wa-tab" data-toggle="tab" href="#nav-wa" role="tab" aria-controls="nav-contact" aria-selected="false"><span class="font-weight-bold">Word analogy</span></a>
+                                        <a class="nav-item nav-link" id="nav-eu-tab" data-toggle="tab" href="#nav-eu" role="tab" aria-controls="nav-contact" aria-selected="false"><span class="font-weight-bold">Evaluating uncertainty</span></a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-nw" role="tabpanel" aria-labelledby="nav-nw-tab">
+                                        <div class="card card-user">
+                                            <div class="card-header">
+                                                <h5 class="card-title font-weight-bold">Nearest words</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                Given a word, this demo shows a list of other words that are similar to it, i.e. nearby in the vector space.
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Positive words<span class="text-danger font-weight-bold">*</span>
+                                                            </label>
+                                                            <input type="text" id="NW_positive_words" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">#Words</label>
+                                                            <select class="form-control" id="NW_topn">
+                                                                <option value="10">10</option>
+                                                                <option value="25" selected>25</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                                <option value="200">200</option>
+                                                                <option value="500">500</option>
+                                                                <option value="1000">1000</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Negative words<span class="text-danger font-weight-bold">*</span>
+                                                            </label>
+                                                            <input type="text" id="NW_negative_words" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="update ml-auto mr-auto">
+                                                        <button id="NW_demo" class="btn btn-danger btn-round">Demo</button>
+                                                        <button id="NW_show" class="btn btn-primary btn-round">Show nearest</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <span class="text-danger font-weight-bold"> * Comma separated – (i.e.: Word1,Word2,...,Wordn)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-sw" role="tabpanel" aria-labelledby="nav-sw-tab">
+                                        <div class="card card-user">
+                                            <div class="card-header">
+                                                <h5 class="card-title font-weight-bold">Similarity of two words</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                Given two or more words, it returns their similarity between 0 and 1.
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Words 1<span class="text-danger font-weight-bold">*</span>
+                                                            </label>
+                                                            <input type="text" id="SW_words_1" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Words 2<span class="text-danger font-weight-bold">*</span>
+                                                            </label>
+                                                            <input type="text" id="SW_words_2" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="update ml-auto mr-auto">
+                                                        <button id="SW_demo" class="btn btn-danger btn-round">Demo</button>
+                                                        <button id="SW_show" class="btn btn-primary btn-round">Show similarity</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <span class="text-danger font-weight-bold"> * Comma separated – (i.e.: Word1,Word2,...,Wordn)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-wa" role="tabpanel" aria-labelledby="nav-wa-tab">
+                                        <div class="card card-user">
+                                            <div class="card-header">
+                                                <h5 class="card-title font-weight-bold">Word analogy</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                    This method computes word analogy: the first word is to the second word like the third word is to which word?
+                                                    Try for example (tumor - cancer - woman) which would expect to return: breast, risk and more.
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">Word 1</label>
+                                                            <input type="text" id="WA_word1" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">Word 2</label>
+                                                            <input type="text" id="WA_word2" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">Word 3</label>
+                                                            <input type="text" id="WA_word3" class="form-control" placeholder="Type in a word" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">#Words</label>
+                                                            <select class="form-control" id="WA_topn">
+                                                                <option value="10">10</option>
+                                                                <option value="25" selected>25</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                                <option value="200">200</option>
+                                                                <option value="500">500</option>
+                                                                <option value="1000">1000</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="update ml-auto mr-auto">
+                                                        <button id="WA_demo" class="btn btn-danger btn-round">Demo</button>
+                                                        <button id="WA_show" type="submit" class="btn btn-primary btn-round">Show analogy</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-eu" role="tabpanel" aria-labelledby="nav-eu-tab">
+                                        <div class="card card-user">
+                                            <div class="card-header">
+                                                <h5 class="card-title font-weight-bold">Evaluating uncertainty</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                Given two or more words, it returns their similarity between 0 and 1.
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Text
+                                                            </label>
+                                                            <textarea id="EU_text" placeholder="Type in a word" rows="10" style="width: 100%;resize: none;border: transparent 2px gray;border-left-radius: 5px;border-right-radius: 5px;outline: none;"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="update ml-auto mr-auto">
+                                                        <button id="EU_demo" class="btn btn-danger btn-round">Demo</button>
+                                                        <button id="EU_show" class="btn btn-primary btn-round">Evaluate</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 invisible" id="div_results">
                             <div class="card card-user">
                                 <div class="card-header">
                                     <h4 class="card-title">Results</h4>
                                 </div>
-                                <div class="card-body" id="results_analysis" style="overflow: scroll; height: 500px;">
+                                <div class="card-body" id="results_analysis" style="overflow: scroll; height: 450px;">
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <footer class="footer footer-black footer-white">
+                <footer class="footer">
                     <div class="container-fluid">
                         <div class="row">
                             <nav class="footer-nav">
@@ -320,11 +354,11 @@
         <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
         <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
         <script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-        <script defer src="{% static 'assets/js/fontawesome_v5.15.3_all.min.js' %}"></script>
+        <script src="{% static 'assets/js/fontawesome_v5.15.3_all.min.js' %}"></script>
 
         <!-- Chart JS -->
         <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
-        <!--  Notifications Plugin    -->
+        <!-- Notifications Plugin -->
         <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
         <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="{% static 'assets/demo/demo.js' %}"></script>
@@ -337,6 +371,7 @@
             var url_run_nearest_words = "{% url 'run-nearest-words' %}";
             var url_run_similarity_words = "{% url 'run-similarity-words' %}";
             var url_run_word_analogy = "{% url 'run-word-analogy' %}";
+            var url_run_eval_uncertainty = "{% url 'run-eval-uncertainty' %}";
             var csrf_token = "{{ csrf_token }}";
         </script>
         <script src="{% static 'assets/js/utility.js' %}" type="text/javascript"></script>
