@@ -7,6 +7,9 @@ $(document).ready(function () {
 
     WA_demo()
     WA_show()
+
+    EU_demo()
+    EU_show()
 });
 
 function getModel() {
@@ -27,7 +30,7 @@ function NW_demo() {
 
 function NW_show() {
     $("#NW_show").click(function () {
-        $('div.row.visible').removeClass('visible').addClass('invisible')
+        $('#div_results').removeClass('visible').addClass('invisible');
 
         let model_id = getModel()
         console.log('NW_show -> model_id', model_id);
@@ -73,10 +76,9 @@ function NW_show() {
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
             console.log('POST run_NW', data)
-
             if (data.type === 'success') {
                 $('#results_analysis').append(data['html'])
-                $('div.row.invisible').removeClass('invisible').addClass('visible')
+                $('#div_results').removeClass('invisible').addClass('visible');
             }
 
             Swal.fire({
@@ -89,7 +91,6 @@ function NW_show() {
                 confirmButtonColor: '#145da0',
                 allowOutsideClick: false
             })
-
         }, "json");
     });
 }
@@ -108,7 +109,7 @@ function SW_demo() {
 
 function SW_show() {
     $("#SW_show").click(function () {
-        $('div.row.visible').removeClass('visible').addClass('invisible')
+        $('#div_results').removeClass('visible').addClass('invisible');
 
         let model_id = getModel()
         console.log('SW_show -> model_id', model_id);
@@ -153,7 +154,7 @@ function SW_show() {
 
             if (data.type === 'success') {
                 $('#results_analysis').append(data['html'])
-                $('div.row.invisible').removeClass('invisible').addClass('visible')
+                $('#div_results').removeClass('invisible').addClass('visible');
             }
 
             Swal.fire({
@@ -188,7 +189,7 @@ function WA_demo() {
 
 function WA_show() {
     $("#WA_show").click(function () {
-        $('div.row.visible').removeClass('visible').addClass('invisible')
+        $('#div_results').removeClass('visible').addClass('invisible');
 
         let model_id = getModel()
         console.log('WA_show -> model_id', model_id);
@@ -241,7 +242,79 @@ function WA_show() {
 
             if (data.type === 'success') {
                 $('#results_analysis').append(data['html'])
-                $('div.row.invisible').removeClass('invisible').addClass('visible')
+                $('#div_results').removeClass('invisible').addClass('visible');
+            }
+
+            Swal.fire({
+                icon: data.type,
+                title: data.title,
+                html: data.message,
+                showConfirmButton: true,
+                timer: 0,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+                allowOutsideClick: false
+            })
+        }, "json");
+    });
+}
+
+function EU_demo() {
+    $("#EU_demo").click(function () {
+        let text = $('#EU_text')
+        text.val('Breast cancer is cancer that forms in the cells of the breasts. After skin cancer, breast cancer is the most ' +
+            'common cancer diagnosed in women in the United States. Breast cancer can occur in both men and women, but it\'s ' +
+            'far more common in women. Substantial support for breast cancer awareness and research funding has helped created ' +
+            'advances in the diagnosis and treatment of breast cancer. Breast cancer survival rates have increased, and the ' +
+            'number of deaths associated with this disease is steadily declining, largely due to factors such as earlier ' +
+            'detection, a new personalized approach to treatment and a better understanding of the disease.')
+        console.log('EU_show -> text', text.val());
+    });
+}
+
+function EU_show() {
+    $("#EU_show").click(function () {
+        $('#div_results').removeClass('visible').addClass('invisible');
+
+        let model_id = getModel()
+        console.log('EU_show -> model_id', model_id);
+
+        let text = $('#EU_text')
+        console.log('EU_show -> text', text.val());
+
+        if(text.val().trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: '<b>An error has occurred</b>',
+                html: 'You have not entered any text.<br />Please try again.',
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+            })
+            return 0
+        }
+
+        Swal.fire({
+            title: 'Running',
+            html: 'Wait!<br />It will take a few minutes to complete',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+                $('#results_analysis').html('')
+            }
+        })
+
+        $.post(url_run_eval_uncertainty, {
+            'model_id': model_id,
+            'text': text.val(),
+            'csrfmiddlewaretoken': csrf_token,
+        }, function (data) {
+            console.log('POST run_EU', data)
+            if (data.type === 'success') {
+                $('#results_analysis').append(data['html'])
+                $('#div_results').removeClass('invisible').addClass('visible');
             }
 
             Swal.fire({
