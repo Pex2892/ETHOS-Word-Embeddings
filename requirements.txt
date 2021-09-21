@@ -1,3 +1,4 @@
 django==3.2.5
 gensim
 python-Levenshtein
+spacy
