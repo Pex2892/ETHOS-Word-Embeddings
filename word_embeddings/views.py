@@ -3,7 +3,11 @@ from django.shortcuts import render
 from django.conf import settings
 from django.http import JsonResponse
 import os
-from .utility import load_model
+from .utility import load_model, normalize
+import spacy.cli
+# spacy.cli.download("en_core_web_lg")
+import spacy
+from statistics import mean
 
 model_ids_previous = []
 model_loaded = []
@@ -41,15 +45,14 @@ def run_nearest_words(request):
     topn = int(request.POST['topn'])
 
     try:
+        this_model = model_loaded[model_ids_previous.index(int(request.POST['model_id']))]
+
         if positive_words is not None and negative_words is None:
-            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(
-                positive=positive_words, topn=topn)
+            results = this_model.most_similar(positive=positive_words, topn=topn)
         elif positive_words is None and negative_words is not None:
-            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(
-                negative=negative_words, topn=topn)
+            results = this_model.most_similar(negative=negative_words, topn=topn)
         elif positive_words is not None and negative_words is not None:
-            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(
-                positive=positive_words, negative=negative_words, topn=topn)
+            results = this_model.most_similar(positive=positive_words, negative=negative_words, topn=topn)
         else:
             return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                                  'message': 'You have not entered any words.<br />Please try again.', 'html': ''})
@@ -95,7 +98,8 @@ def run_similarity_words(request):
             return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                                  'message': 'You have not entered any words.<br />Please try again.', 'html': ''})
         elif words_1 is not None and words_2 is not None:
-            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].n_similarity(words_1, words_2)
+            this_model = model_loaded[model_ids_previous.index(int(request.POST['model_id']))]
+            results = this_model.n_similarity(words_1, words_2)
     except KeyError as ke:
         return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
@@ -132,8 +136,9 @@ def run_word_analogy(request):
 
     try:
         if word1 is not None and word2 is not None and word3 is not None:
-            results = model_loaded[model_ids_previous.index(int(request.POST['model_id']))].most_similar(
-                positive=[word3, word2], negative=[word1], topn=topn)
+            this_model = model_loaded[model_ids_previous.index(int(request.POST['model_id']))]
+
+            results = this_model.most_similar(positive=[word3, word2], negative=[word1], topn=topn)
         else:
             return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                                  'message': 'You have not entered any words.<br />Please try again.', 'html': ''})
@@ -152,3 +157,48 @@ def run_word_analogy(request):
 
     return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
                          'html': html_str})
+
+def run_eval_uncertainty(request):
+    global model_ids_previous
+    global model_loaded
+
+    if len(model_ids_previous) == 0 or int(request.POST['model_id']) not in model_ids_previous:
+        model_ids_previous.append(int(request.POST['model_id']))
+        model_loaded.append(load_model(int(request.POST['model_id'])))
+
+    text = request.POST['text']
+    if text == '':
+        text = None
+
+    if text is None:
+        return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
+                             'message': 'You have not entered any words.<br />Please try again.', 'html': ''})
+    else:
+        nlp = spacy.load('en_core_web_lg')
+        nlp.max_length = 3500000
+        list_of_words = list(set(normalize(nlp(text), is_lemma=True)))
+        print(list_of_words)
+        score = []
+        this_model = model_loaded[model_ids_previous.index(int(request.POST['model_id']))]
+
+        for w1 in list_of_words:
+            try:
+                # print(w1)
+                words_res = this_model.most_similar(positive=[w1], topn=10)
+                # print(words_res)
+                score.append(mean([w2[1] for w2 in words_res]))
+            except KeyError as ke:
+                # print(ke)
+                score.append(0)
+
+        # print(score)
+        text_recognised = round(mean(score) * 100, 1)
+        uncertainty_score = 100 - text_recognised
+
+        html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
+                   '<tr><th> Text </th><th> Text recognised </th><th class="text-right"> Uncertainty score </th></tr></thead><tbody>' \
+                   f'<tr><td class="text-justify">{text}</td><td class="text-right">{text_recognised}%</td><td class="text-right">{uncertainty_score}%</td>' \
+                   f'</tr></tbody></table>'
+
+        return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
+                             'html': html_str})
