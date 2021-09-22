@@ -1,13 +1,12 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from django.http import JsonResponse
-import os
 from .utility import load_model, normalize
-import spacy.cli
-# spacy.cli.download("en_core_web_lg")
 import spacy
-from statistics import mean
+from statistics import mean, stdev
+import spacy.cli
+spacy.cli.download("en_core_web_lg")
+
 
 model_ids_previous = []
 model_loaded = []
@@ -65,7 +64,7 @@ def run_nearest_words(request):
                '<th class="text-right"> Score </th></tr></thead><tbody>'
 
     for i in range(0, len(results)):
-        html_str += f'<tr><td>{(i+1)}</td><td>{request.POST["positive_words"]}</td><td>{request.POST["negative_words"]}</td>' \
+        html_str += f'<tr><td>{(i + 1)}</td><td>{request.POST["positive_words"]}</td><td>{request.POST["negative_words"]}</td>' \
                     f'<td>{results[i][0]}</td><td class="text-right">{round(results[i][1], 4)}</td></tr>'
         # print(request.POST['positive_words'], request.POST['negative_words'], results[i][0], results[i][1])
     html_str += '</tbody></table>'
@@ -112,6 +111,7 @@ def run_similarity_words(request):
     return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
                          'html': html_str})
 
+
 def run_word_analogy(request):
     global model_ids_previous
     global model_loaded
@@ -151,12 +151,13 @@ def run_word_analogy(request):
                '<th class="text-right"> Score </th></tr></thead><tbody>'
 
     for i in range(0, len(results)):
-        html_str += f'<tr><td>{(i+1)}</td><td>{word1}</td><td>{word2}</td><td>{word3}</td><td>{results[i][0]}</td>' \
+        html_str += f'<tr><td>{(i + 1)}</td><td>{word1}</td><td>{word2}</td><td>{word3}</td><td>{results[i][0]}</td>' \
                     f'<td class="text-right">{round(results[i][1], 4)}</td></tr>'
     html_str += '</tbody></table>'
 
     return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
                          'html': html_str})
+
 
 def run_eval_uncertainty(request):
     global model_ids_previous
@@ -176,24 +177,36 @@ def run_eval_uncertainty(request):
     else:
         nlp = spacy.load('en_core_web_lg')
         nlp.max_length = 3500000
-        list_of_words = list(set(normalize(nlp(text), is_lemma=True)))
-        print(list_of_words)
+        list_of_words = normalize(nlp(text), is_lemma=True)
+        # print(list_of_words)
         score = []
         this_model = model_loaded[model_ids_previous.index(int(request.POST['model_id']))]
-
         for w1 in list_of_words:
             try:
                 # print(w1)
-                words_res = this_model.most_similar(positive=[w1], topn=10)
+                words_res = this_model.most_similar(positive=[w1], topn=1)
+                score.append(words_res[0][1])
                 # print(words_res)
-                score.append(mean([w2[1] for w2 in words_res]))
+                # score.append(mean([w2[1] for w2 in words_res]))
             except KeyError as ke:
                 # print(ke)
                 score.append(0)
 
         # print(score)
-        text_recognised = round(mean(score) * 100, 1)
-        uncertainty_score = 100 - text_recognised
+
+        mean_res = mean(score)
+        stdev_res = stdev(score)
+        # print(f'mean: {mean_res} - sd: {stdev_res}')
+
+        if mean_res > 0.60:
+            text_recognised = round(mean_res * 100, 1)
+            uncertainty_score = round(100 - text_recognised, 1)
+        elif 0.50 <= mean_res <= 0.60:
+            text_recognised = round((mean_res - (stdev_res / 2)) * 100, 1)
+            uncertainty_score = round(100 - text_recognised, 1)
+        else:
+            uncertainty_score = round((mean_res + stdev_res) * 100, 1)
+            text_recognised = round(100 - uncertainty_score, 1)
 
         html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
                    '<tr><th> Text </th><th> Text recognised </th><th class="text-right"> Uncertainty score </th></tr></thead><tbody>' \
