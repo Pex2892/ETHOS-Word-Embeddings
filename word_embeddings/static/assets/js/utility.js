@@ -1,20 +1,26 @@
 $(document).ready(function () {
     NW_demo()
     NW_show()
+    NW_reset()
 
     SW_demo()
     SW_show()
+    SW_reset()
 
     WA_demo()
     WA_show()
+    WA_reset()
 
     EU_demo()
     EU_show()
+    EU_reset()
 });
 
 function getModel() {
     return $('#model').val();
 }
+
+// ----- Nearest words -----
 
 function NW_demo() {
     $("#NW_demo").click(function () {
@@ -95,6 +101,16 @@ function NW_show() {
     });
 }
 
+function NW_reset() {
+    $("#NW_reset").click(function () {
+        $('#NW_positive_words').val('')
+
+        $('#NW_negative_words').val('')
+    });
+}
+
+// ----- Similarity among words -----
+
 function SW_demo() {
     $("#SW_demo").click(function () {
         let word1 = $('#SW_words_1')
@@ -170,6 +186,16 @@ function SW_show() {
         }, "json");
     });
 }
+
+function SW_reset() {
+    $("#SW_reset").click(function () {
+        $('#SW_words_1').val('')
+
+        $('#SW_words_2').val('')
+    });
+}
+
+// ----- Word analogy -----
 
 function WA_demo() {
     $("#WA_demo").click(function () {
@@ -259,6 +285,18 @@ function WA_show() {
     });
 }
 
+function WA_reset() {
+    $("#WA_reset").click(function () {
+        $('#WA_word1').val('')
+
+        $('#WA_word2').val('')
+
+        $('#WA_word3').val('')
+    });
+}
+
+// ----- Evaluating uncertainty -----
+
 function EU_demo() {
     $("#EU_demo").click(function () {
         let text = $('#EU_text')
@@ -330,3 +368,10 @@ function EU_show() {
         }, "json");
     });
 }
+
+function EU_reset() {
+    $("#EU_reset").click(function () {
+        $('#EU_text').val('')
+    });
+}
+
