@@ -4,7 +4,7 @@
 ![django](https://img.shields.io/badge/Django%20tested-3.2.x-blue)
 ![version](https://img.shields.io/badge/version-v.1.0-blueviolet)
 ![requirements](https://img.shields.io/badge/requirements-up%20to%20date-brightgreen)
-![last_update](https://img.shields.io/badge/last%20update-July%2030%2C%202021-yellowgreen)
+![last_update](https://img.shields.io/badge/last%20update-September%2027%2C%202021-yellowgreen)
 ![license](https://img.shields.io/badge/License-PETAL%20by%20Giuseppe%20Sgroi%20is%20licensed%20under%20CC%20BY--NC--SA%204.0-red)
 ![doi](https://img.shields.io/badge/DOI-XXXXX-informational)
 
