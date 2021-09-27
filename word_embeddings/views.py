@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import JsonResponse
-from .utility import load_model, normalize
+from .utility import load_model, normalize, to_vectorize, cosine_sim
 import spacy
 from statistics import mean, stdev
 import spacy.cli
-spacy.cli.download("en_core_web_lg")
+# spacy.cli.download("en_core_web_lg")
 
 
 model_ids_previous = []
@@ -211,6 +211,49 @@ def run_eval_uncertainty(request):
         html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
                    '<tr><th> Text </th><th> Text recognised </th><th class="text-right"> Uncertainty score </th></tr></thead><tbody>' \
                    f'<tr><td class="text-justify">{text}</td><td class="text-right">{text_recognised}%</td><td class="text-right">{uncertainty_score}%</td>' \
+                   f'</tr></tbody></table>'
+
+        return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
+                             'html': html_str})
+
+def run_text_similarity(request):
+    global model_ids_previous
+    global model_loaded
+
+    if len(model_ids_previous) == 0 or int(request.POST['model_id']) not in model_ids_previous:
+        model_ids_previous.append(int(request.POST['model_id']))
+        model_loaded.append(load_model(int(request.POST['model_id'])))
+
+    text_1 = request.POST['text_1']
+    if text_1 == '':
+        text_1 = None
+
+    text_2 = request.POST['text_2']
+    if text_2 == '':
+        text_2 = None
+
+    if text_1 is None or text_2 is None:
+        return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
+                             'message': 'You have not entered any words.<br />Please try again.', 'html': ''})
+    else:
+        nlp = spacy.load('en_core_web_lg')
+        nlp.max_length = 3500000
+
+        this_model = model_loaded[model_ids_previous.index(int(request.POST['model_id']))]
+
+        text1_words = list(set(normalize(nlp(text_1), is_lemma=True)))
+        text2_words = list(set(normalize(nlp(text_2), is_lemma=True)))
+
+        text1_vec = to_vectorize(this_model, text1_words)
+        text2_vec = to_vectorize(this_model, text2_words)
+
+        sim_score = round(cosine_sim(text1_vec, text2_vec) * 100, 2)
+        # print(sim_score)
+
+        html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
+                   '<tr><th> No. </th><th class="text-center"> Text </th><th class="text-right"> Similarity score </th></tr></thead><tbody>' \
+                   f'<tr><td> 1 </td><td class="text-justify">{text_1}</td><td class="text-right" rowspan="2">{sim_score}%</td>' \
+                   f'<tr><td> 2 </td><td class="text-justify">{text_2}</td>' \
                    f'</tr></tbody></table>'
 
         return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
