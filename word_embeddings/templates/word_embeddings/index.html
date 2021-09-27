@@ -116,6 +116,7 @@
                                         <a class="nav-item nav-link" id="nav-sw-tab" data-toggle="tab" href="#nav-sw" role="tab" aria-controls="nav-profile" aria-selected="false"><span class="font-weight-bold">Similarity among words</span></a>
                                         <a class="nav-item nav-link" id="nav-wa-tab" data-toggle="tab" href="#nav-wa" role="tab" aria-controls="nav-contact" aria-selected="false"><span class="font-weight-bold">Word analogy</span></a>
                                         <a class="nav-item nav-link" id="nav-eu-tab" data-toggle="tab" href="#nav-eu" role="tab" aria-controls="nav-contact" aria-selected="false"><span class="font-weight-bold">Evaluating uncertainty</span></a>
+                                        <a class="nav-item nav-link" id="nav-ts-tab" data-toggle="tab" href="#nav-ts" role="tab" aria-controls="nav-contact" aria-selected="false"><span class="font-weight-bold">Text similarity</span></a>
                                     </div>
                                 </nav>
                                 <div class="tab-content" id="nav-tabContent">
@@ -322,6 +323,50 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="tab-pane fade" id="nav-ts" role="tabpanel" aria-labelledby="nav-ts-tab">
+                                        <div class="card card-user">
+                                            <div class="card-header">
+                                                <h5 class="card-title font-weight-bold">Text similarity</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                Given two texts as input, the recognition percentage is returned.
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Text 1
+                                                            </label>
+                                                            <textarea id="TS_text_1" placeholder="Type in a word" rows="4" style="width: 100%;resize: none;border: transparent 2px gray;border-left-radius: 5px;border-right-radius: 5px;outline: none;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="text-secondary font-weight-bold">
+                                                                Text 2
+                                                            </label>
+                                                            <textarea id="TS_text_2" placeholder="Type in a word" rows="4" style="width: 100%;resize: none;border: transparent 2px gray;border-left-radius: 5px;border-right-radius: 5px;outline: none;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="update ml-auto mr-auto text-left">
+                                                        <button id="TS_demo" class="btn btn-success btn-round">Demo</button>
+                                                    </div>
+
+                                                    <div class="update ml-auto mr-auto text-center">
+                                                        <button id="TS_show" class="btn btn-primary btn-round">Evaluate</button>
+                                                    </div>
+
+                                                    <div class="update ml-auto mr-auto text-right">
+                                                        <button id="TS_reset" class="btn btn-danger btn-round">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -399,6 +444,7 @@
             var url_run_similarity_words = "{% url 'run-similarity-words' %}";
             var url_run_word_analogy = "{% url 'run-word-analogy' %}";
             var url_run_eval_uncertainty = "{% url 'run-eval-uncertainty' %}";
+            var url_run_text_similarity = "{% url 'run-text-similarity' %}";
             var csrf_token = "{{ csrf_token }}";
         </script>
         <script src="{% static 'assets/js/utility.js' %}" type="text/javascript"></script>
