@@ -12,6 +12,13 @@ Decisions in healthcare are usually relying on the goodness and completeness of 
 We applied NLP coupled with machine learning approaches to predict the context (words) owning high accuracy from the words that are nearest to Delphi surveys, used as input. <br>
 The proposed methodology has allowed to increase the usefulness of Delphi surveys favouring the extraction of keywords that can represent a specific clinical context. This permits the characterization of the clinical context suggesting words for the evaluation process of the data. 
 
+The interface allows:
+- Evaluate nearest words
+- The similarity among words
+- Evaluate word analogies
+- Evaluate the uncertainty of a text
+- Evaluate the similarity between two texts
+
 Project link: <a href="https://combine.dmi.unict.it/ETHOS-word-embeddings/" target="_blank">https://combine.dmi.unict.it/ETHOS-word-embeddings/</a>
 
 ![gui](gui.png)
