@@ -14,6 +14,10 @@ $(document).ready(function () {
     EU_demo()
     EU_show()
     EU_reset()
+
+    TS_demo()
+    TS_show()
+    TS_reset()
 });
 
 function getModel() {
@@ -375,3 +379,91 @@ function EU_reset() {
     });
 }
 
+// ----- Text similarity -----
+
+function TS_demo() {
+    $("#TS_demo").click(function () {
+        let text_1 = $('#TS_text_1')
+        text_1.val('Breast cancer is cancer that forms in the cells of the breasts. After skin cancer, breast cancer is the most ' +
+            'common cancer diagnosed in women in the United States. Breast cancer can occur in both men and women, but it\'s ' +
+            'far more common in women. Substantial support for breast cancer awareness and research funding has helped created ' +
+            'advances in the diagnosis and treatment of breast cancer.')
+        console.log('EU_show -> text_1', text_1.val());
+
+        let text_2 = $('#TS_text_2')
+        text_2.val('Breast cancer survival rates have increased, and the number of deaths associated with this ' +
+            'disease is steadily declining, largely due to factors such as earlier detection, a new personalized ' +
+            'approach to treatment and a better understanding of the disease.')
+        console.log('EU_show -> text_2', text_2.val());
+    });
+}
+
+function TS_show() {
+    $("#TS_show").click(function () {
+        $('#div_results').removeClass('visible').addClass('invisible');
+
+        let model_id = getModel()
+        console.log('TS_show -> model_id', model_id);
+
+        let text_1 = $('#TS_text_1')
+        console.log('TS_show -> text_1', text_1.val());
+
+        let text_2 = $('#TS_text_2')
+        console.log('TS_show -> text_2', text_2.val());
+
+        if(text_1.val().trim() === '' || text_2.val().trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: '<b>An error has occurred</b>',
+                html: 'You have not entered any text.<br />Please try again.',
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+            })
+            return 0
+        }
+
+        Swal.fire({
+            title: 'Running',
+            html: 'Wait!<br />It will take a few minutes to complete',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+                $('#results_analysis').html('')
+            }
+        })
+
+        $.post(url_run_text_similarity, {
+            'model_id': model_id,
+            'text_1': text_1.val(),
+            'text_2': text_2.val(),
+            'csrfmiddlewaretoken': csrf_token,
+        }, function (data) {
+            console.log('POST run_TS', data)
+            if (data.type === 'success') {
+                $('#results_analysis').append(data['html'])
+                $('#div_results').removeClass('invisible').addClass('visible');
+            }
+
+            Swal.fire({
+                icon: data.type,
+                title: data.title,
+                html: data.message,
+                showConfirmButton: true,
+                timer: 0,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#145da0',
+                allowOutsideClick: false
+            })
+        }, "json");
+    });
+}
+
+function TS_reset() {
+    $("#TS_reset").click(function () {
+        $('#text_1').val('')
+        $('#text_2').val('')
+    });
+}
