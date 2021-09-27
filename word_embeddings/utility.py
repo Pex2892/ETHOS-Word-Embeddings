@@ -2,6 +2,7 @@ from django.conf import settings
 import os
 from gensim.models import KeyedVectors
 from gensim.models import Word2Vec
+import numpy as np
 
 
 def load_model(model_id):
@@ -46,3 +47,26 @@ def normalize(fulltext, is_lemma: bool = False) -> list:
     if is_lemma:
         return words_lemma
     return words_base
+
+
+def to_vectorize(model, words):
+    word_vecs = []
+    for word in words:
+        try:
+            vec = model[word]
+            word_vecs.append(vec)
+        except KeyError:
+            # Ignore, if the word doesn't exist in the vocabulary
+            pass
+
+    # Assuming that document vector is the mean of all the word vectors
+    vector = np.mean(word_vecs, axis=0)
+    return vector
+
+
+def cosine_sim(vecA, vecB):
+    """Find the cosine similarity distance between two vectors."""
+    csim = np.dot(vecA, vecB) / (np.linalg.norm(vecA) * np.linalg.norm(vecB))
+    if np.isnan(np.sum(csim)):
+        return 0
+    return csim
