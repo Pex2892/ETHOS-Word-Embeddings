@@ -7,4 +7,5 @@ urlpatterns = [
     path('runSimilarityWords/', views.run_similarity_words, name='run-similarity-words'),
     path('runWordAnalogy/', views.run_word_analogy, name='run-word-analogy'),
     path('runEvalUncertainty/', views.run_eval_uncertainty, name='run-eval-uncertainty'),
+    path('runTextSimilarity/', views.run_text_similarity, name='run-text-similarity'),
 ]
