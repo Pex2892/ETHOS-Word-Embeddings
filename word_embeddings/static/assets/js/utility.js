@@ -32,9 +32,9 @@ function NW_demo() {
         positive_words.val('woman,cancer')
         console.log('NW_show -> positive_words', positive_words.val());
 
-        let negative_words = $('#NW_negative_words')
+        /*let negative_words = $('#NW_negative_words')
         negative_words.val('death')
-        console.log('NW_show -> negative_words', negative_words.val());
+        console.log('NW_show -> negative_words', negative_words.val());*/
     });
 }
 
@@ -48,13 +48,13 @@ function NW_show() {
         let positive_words = $('#NW_positive_words')
         console.log('NW_show -> positive_words', positive_words.val());
 
-        let negative_words = $('#NW_negative_words')
-        console.log('NW_show -> negative_words', negative_words.val());
+        //let negative_words = $('#NW_negative_words')
+        //console.log('NW_show -> negative_words', negative_words.val());
 
         let topn = $('#NW_topn')
         console.log('NW_show -> topn', topn.val());
 
-        if(positive_words.val().trim() === '' && negative_words.val().trim() === '') {
+        if(positive_words.val().trim() === '') { //&& negative_words.val().trim() === '') {
             Swal.fire({
                 icon: 'error',
                 title: '<b>An error has occurred</b>',
@@ -81,7 +81,7 @@ function NW_show() {
         $.post(url_run_nearest_words, {
             'model_id': model_id,
             'positive_words': positive_words.val(),
-            'negative_words': negative_words.val(),
+            //'negative_words': negative_words.val(),
             'topn': topn.val(),
             'csrfmiddlewaretoken': csrf_token,
         }, function (data) {
@@ -109,7 +109,7 @@ function NW_reset() {
     $("#NW_reset").click(function () {
         $('#NW_positive_words').val('')
 
-        $('#NW_negative_words').val('')
+        //$('#NW_negative_words').val('')
     });
 }
 
