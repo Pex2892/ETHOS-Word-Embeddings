@@ -53,8 +53,9 @@ def run_nearest_words(request):
                '<tr><th> Position </th><th> Pos. words </th><th class="text-right"> Results </th>' \
                '<th class="text-right"> Score </th></tr></thead><tbody>'
 
+    positive_words_text = '<br />'.join(positive_words)
     for i in range(0, len(results)):
-        html_str += f'<tr><td>{(i + 1)}</td><td>{request.POST["positive_words"]}</td>' \
+        html_str += f'<tr><td>{(i + 1)}</td><td>{positive_words_text}</td>' \
                     f'<td class="text-right">{results[i][0]}</td><td class="text-right">{round(results[i][1], 4)}</td></tr>'
     html_str += '</tbody></table>'
 
@@ -115,6 +116,8 @@ def run_similarity_words(request):
         words_2 = None
     else:
         words_2 = words_2.split(',')
+
+    results = None
     try:
         if words_1 is None or words_2 is None:
             return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
@@ -126,9 +129,12 @@ def run_similarity_words(request):
         return JsonResponse({'type': 'error', 'title': '<b>An error has occurred</b>',
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
 
+    words_1_text = '<br />'.join(words_1)
+    words_2_text = '<br />'.join(words_2)
+
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
                '<tr><th> Words 1 </th><th> Words 2 </th><th class="text-right"> Similarity </th></tr></thead><tbody>' \
-               f'<tr><td>{request.POST["words_1"].strip()}</td><td>{request.POST["words_2"].strip()}</td><td class="text-right">{round(float(results), 4)}</td>' \
+               f'<tr><td>{words_1_text}</td><td>{words_2_text}</td><td class="text-right">{round(float(results), 4)}</td>' \
                f'</tr></tbody></table>'
 
     return JsonResponse({'type': 'success', 'title': 'Finished!', 'message': 'Running successfully completed',
@@ -170,11 +176,11 @@ def run_word_analogy(request):
                              'message': f'<b>{ke}</b>.<br />Please try again.', 'html': ''})
 
     html_str = '<div class="table-responsive"><table class="table"><thead class=" text-primary">' \
-               '<tr><th> Position </th><th> Word 1 </th><th> Word 2 </th><th> Word 3 </th><th> Results </th>' \
+               '<tr><th> Position </th><th> Word 1 </th><th> Word 2 </th><th> Word 3 </th><th class="text-right"> Results </th>' \
                '<th class="text-right"> Score </th></tr></thead><tbody>'
 
     for i in range(0, len(results)):
-        html_str += f'<tr><td>{(i + 1)}</td><td>{word1}</td><td>{word2}</td><td>{word3}</td><td>{results[i][0]}</td>' \
+        html_str += f'<tr><td>{(i + 1)}</td><td>{word1}</td><td>{word2}</td><td>{word3}</td><td class="text-right">{results[i][0]}</td>' \
                     f'<td class="text-right">{round(results[i][1], 4)}</td></tr>'
     html_str += '</tbody></table>'
 
