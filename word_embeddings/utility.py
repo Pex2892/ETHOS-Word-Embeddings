@@ -10,6 +10,7 @@ def load_model(model_id):
 
     list_models = [
         ('ETHOS.model', 'gensim'),
+        ('ETHOS_v2.model', 'gensim'),
     ]
 
     '''list_models = [
